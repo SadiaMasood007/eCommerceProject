@@ -22,14 +22,14 @@ export default function ProductList() {
   });
 
   const categoryTitles = {
-    "men's clothing": "Men's Clothing",
+    "men's clothing": "Men's Clothing and Bags",
     "women's clothing": "Women's Clothing",
     "jewelery": "Accessories & Jewelry",
     "electronics": "Electronics",
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mx-7">
       {Object.keys(categories).map((cat) =>
         categories[cat].length > 0 ? (
           <div key={cat}>
