@@ -1,4 +1,3 @@
-// pages/ProductDetailsPage.jsx
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +21,7 @@ export default function ProductsDetail() {
         <h1 className="text-2xl font-bold">{product.title}</h1>
         <p className="text-gray-700 mt-2">{product.description}</p>
         <p className="text-lg font-semibold mt-4">${product.price}</p>
-        <button className="mt-6 bg-blue-600 text-white px-4 py-2 rounded">Add to Cart</button>
+        <button className="mt-6 bg-gray-100 text-black px-4 py-2 rounded shadow-md inset-shadow-sm">+🛒</button>
       </div>
     </div>
   );
