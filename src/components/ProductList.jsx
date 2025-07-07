@@ -2,6 +2,8 @@ import React from "react";
 import { useProducts } from "../hooks/useProducts";
 import { Link } from "react-router-dom";
 import { addProductToCart } from "../services/CartService";
+import toast from "react-hot-toast";
+
 
 export const generateStars = () => {
   const stars = Math.floor(Math.random() * 3) + 3;
@@ -61,7 +63,10 @@ export default function ProductList() {
                     </div>
                   </Link>
                   <div className="flex justify-end mt-2">
-                    <button onClick={() => addProductToCart(product)} className="bg-gray-100 hover:bg-gray-200 text-black px-3 py-1 text-sm rounded shadow-sm">
+                    <button onClick={() => {
+                      addProductToCart(product);
+                      toast.success("Added to cart!");
+                    }} className="bg-gray-100 hover:bg-gray-200 text-black px-3 py-1 text-sm rounded shadow-sm">
                       + 🛒
                     </button>
                   </div>
@@ -70,7 +75,8 @@ export default function ProductList() {
             </div>
           </div>
         ) : null
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }

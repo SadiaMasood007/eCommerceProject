@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../services/apiService";
 import { generateStars } from "./ProductList";
 import { addProductToCart } from "../services/CartService";
+import toast from "react-hot-toast";
 
 export default function ProductsDetail() {
   const { id } = useParams();
@@ -24,7 +25,10 @@ export default function ProductsDetail() {
         <p className="text-gray-700 mt-2">{product.description}</p>
         <p className="text-lg text-gray-700  mt-4">${product.price}</p>
         <p className="text-yellow-500 text-sm">{generateStars()}</p>
-        <button onClick={() => addProductToCart(product)} className="mt-6 hover:bg-gray-200 bg-gray-100 text-black px-3 py-1 rounded shadow-md inset-shadow-sm">+🛒</button>
+        <button onClick={() => {
+          addProductToCart(product);
+          toast.success("Added to cart!");
+        }} className="mt-6 hover:bg-gray-200 bg-gray-100 text-black px-3 py-1 rounded shadow-md inset-shadow-sm">+🛒</button>
       </div>
     </div>
   );
