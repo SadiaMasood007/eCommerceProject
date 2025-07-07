@@ -1,95 +1,93 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 
 const Checkout = () => {
-  const { cartItems, clearCart } = useCart();
-  const [orderPlaced, setOrderPlaced] = useState(false);
-
-  const [form, setForm] = useState({
-    name: "",
-    address: "",
-    payment: "",
-  });
+  const { cartItems } = useCart();
+  const [form, setForm] = useState({ name: "", address: "", payment: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
     if (!form.name || !form.address || !form.payment) {
-      alert("Please fill out all fields");
+      alert("Please fill all the fields");
       return;
     }
 
-    console.log("Order placed with info:", form, cartItems);
-    clearCart();
-    setOrderPlaced(true);
+    localStorage.setItem("checkoutInfo", JSON.stringify(form));
+    navigate("/confirmation");
   };
 
-  if (orderPlaced) {
-    return (
-      <div className="max-w-xl mx-auto mt-10 p-6 text-center">
-        <h1 className="text-2xl font-bold mb-4">🎉 Order Placed Successfully!</h1>
-        <p>Thank you, {form.name}! We'll ship to {form.address}</p>
-      </div>
-    );
-  }
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Checkout</h1>
+    <div className="max-w-5xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1">Full Name</label>
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            className="w-full border p-2"
-            required
-          />
-        </div>
+      <div className="md:col-span-1 border p-4 rounded shadow-md h-fit">
+        <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
+        {cartItems.map((item) => (
+          <div key={item.id} className="flex justify-between mb-2 text-sm">
+            <span>{item.title}</span>
+            <span>${(item.price * item.quantity).toFixed(2)}</span>
+          </div>
+        ))}
+        <hr className="my-2" />
+        <div className="text-right font-bold">Total: ${total.toFixed(2)}</div>
+      </div>
 
-        <div>
-          <label className="block mb-1">Shipping Address</label>
-          <input
-            name="address"
-            value={form.address}
-            onChange={handleChange}
-            className="w-full border p-2"
-            required
-          />
-        </div>
+      <div className="md:col-span-2 space-y-4">
+        <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1">Full Name</label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full border p-2"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block mb-1">Payment Method</label>
-          <select
-            name="payment"
-            value={form.payment}
-            onChange={handleChange}
-            className="w-full border p-2"
-            required
+          <div>
+            <label className="block mb-1">Shipping Address</label>
+            <input
+              name="address"
+              value={form.address}
+              onChange={handleChange}
+              className="w-full border p-2"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1">Payment Method</label>
+            <select
+              name="payment"
+              value={form.payment}
+              onChange={handleChange}
+              className="w-full border p-2"
+              required
+            >
+              <option value="">Select</option>
+              <option value="cod">Cash on Delivery</option>
+              <option value="card">Credit/Debit Card</option>
+              <option value="online">Online Banking</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
           >
-            <option value="">Select</option>
-            <option value="cod">Cash on Delivery</option>
-            <option value="card">Credit/Debit Card</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
-        >
-          Place Order
-        </button>
-      </form>
+            Confirm & Proceed
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
