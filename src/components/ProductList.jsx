@@ -1,11 +1,12 @@
 import React from "react";
 import { useProducts } from "../hooks/useProducts";
 import { Link } from "react-router-dom";
-import { addProductToCart } from "../services/CartService";
+import { useCart } from "../hooks/useCart";
 import toast from "react-hot-toast";
 
 export default function ProductList() {
   const { data: products, isLoading, isError } = useProducts();
+  const { addToCart } = useCart();
 
   if (isLoading) return <p className="text-center">Loading...</p>;
   if (isError) return <p className="text-center text-red-500">Error loading products</p>;
@@ -94,7 +95,7 @@ export default function ProductList() {
                     </Link>
                     <button
                       onClick={() => {
-                        addProductToCart(product);
+                        addToCart(product);
                         toast.success("Added to cart!");
                       }}
                       className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-black px-2 py-1 text-sm rounded shadow-sm"

@@ -2,7 +2,7 @@ import React from "react";
 import { useCart } from "../hooks/useCart";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
 
   const handleQuantity = (id, current, change) => {
     const newQty = current + change;
@@ -50,6 +50,14 @@ export default function Cart() {
               </button>
             </div>
           ))}
+          <div className="text-right mt-4">
+            <button
+              onClick={clearCart}
+              className="bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-gray-200"
+            >
+              Clear Cart
+            </button>
+          </div>
         </div>
       )}
     </div>

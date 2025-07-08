@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "../services/apiService";
 import { useProducts } from "../hooks/useProducts";
-import { addProductToCart } from "../services/CartService";
+import { useCart } from "../hooks/useCart";
 import toast from "react-hot-toast";
 
 export default function ProductsDetail() {
@@ -14,6 +14,7 @@ export default function ProductsDetail() {
   });
 
   const { data: allProducts } = useProducts();
+  const { addToCart } = useCart();
 
   if (isLoading) return <p className="text-center">Loading product...</p>;
   if (isError) return <p className="text-center text-red-500">Failed to load product</p>;
@@ -41,7 +42,7 @@ export default function ProductsDetail() {
           </p>
           <button
             onClick={() => {
-              addProductToCart(product);
+              addToCart(product);
               toast.success("Added to cart!");
             }}
             className="mt-6 hover:bg-gray-200 bg-gray-100 text-black px-3 py-1 rounded shadow-md inset-shadow-sm"
@@ -68,7 +69,7 @@ export default function ProductsDetail() {
                 </Link>
                 <button
                   onClick={() => {
-                    addProductToCart(item);
+                    addToCart(product);
                     toast.success("Added to cart!");
                   }}
                   className="mt-2 bg-gray-100 hover:bg-gray-200 text-black px-2 py-1 text-sm rounded shadow-sm"
