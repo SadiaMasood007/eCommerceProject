@@ -50,7 +50,7 @@ export default function ProductList() {
             <button
               key={cat}
               onClick={() => scrollToCategory(cat)}
-              className="px-4 py-2 text-sm bg-blue-50 hover:bg-blue-100 text-blue-700 rounded border border-blue-200 transition"
+              className="px-4 py-2 text-sm bg-blue-50 hover:bg-blue-100 text-blue-900 rounded border border-blue-200 transition"
             >
               {categoryTitles[cat]}
             </button>

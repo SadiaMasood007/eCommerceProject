@@ -2,13 +2,16 @@ import React from "react";
 import { useCart } from "../hooks/useCart";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const handleQuantity = (id, current, change) => {
+    const newQty = current + change;
+    if (newQty >= 1) updateQuantity(id, newQty);
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      <h1 className="text-2xl font-bold mb-4 text-blue-900">Your Cart</h1>
 
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -21,15 +24,21 @@ export default function Cart() {
                 <div>
                   <p className="font-medium">{item.title}</p>
                   <p className="text-gray-600">${item.price}</p>
-                  <div className="mt-1">
-                    <label className="mr-2">Qty:</label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                      className="w-16 border px-2"
-                    />
+                  <div className="mt-1 flex items-center gap-2">
+                    {/* <label>Qty:</label> */}
+                    <button
+                      onClick={() => handleQuantity(item.id, item.quantity, -1)}
+                      className="border px-2 bg-gray-100 hover:bg-gray-200"
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() => handleQuantity(item.id, item.quantity, 1)}
+                      className="border px-2 bg-gray-100 hover:bg-gray-200"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
@@ -41,16 +50,6 @@ export default function Cart() {
               </button>
             </div>
           ))}
-
-          <div className="text-right mt-6">
-            <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
-            <button
-              onClick={clearCart}
-              className="mt-2 bg-gray-100 text-gray-600 px-4 py-2 rounded hover:bg-gray-200"
-            >
-              Clear Cart
-            </button>
-          </div>
         </div>
       )}
     </div>

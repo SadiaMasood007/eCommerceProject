@@ -53,7 +53,7 @@ export default function ProductsDetail() {
 
       {related.length > 0 && (
         <div>
-          <h2 className="text-xl font-semibold mb-4">You also might like</h2>
+          <h2 className="text-xl font-semibold mb-4 text-blue-900">You also might like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {related.map(item => (
               <div key={item.id} className="bg-white p-4 rounded shadow hover:scale-105 transition-transform flex flex-col justify-between h-[330px]">
