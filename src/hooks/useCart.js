@@ -46,4 +46,14 @@ export const useCart = create((set, get) => ({
   clearCart: () => {
     set({ cartItems: [] });
   },
+  checkoutInfo: {
+    name: "",
+    address: "",
+    payment: "",
+  },
+
+  setCheckoutInfo: (info) => {
+    set({ checkoutInfo: info });
+  },
+
 }));

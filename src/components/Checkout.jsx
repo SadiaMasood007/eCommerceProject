@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 
 const Checkout = () => {
-  const { cartItems } = useCart();
+  const { cartItems, setCheckoutInfo } = useCart();
   const [form, setForm] = useState({ name: "", address: "", payment: "" });
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const Checkout = () => {
       return;
     }
 
-    localStorage.setItem("checkoutInfo", JSON.stringify(form));
+    setCheckoutInfo(form);
     navigate("/confirmation");
   };
 
@@ -26,7 +26,6 @@ const Checkout = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-
       <div className="md:col-span-1 border p-4 rounded shadow-md h-fit">
         <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
         {cartItems.map((item) => (

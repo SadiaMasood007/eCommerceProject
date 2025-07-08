@@ -1,31 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCart } from "../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 
 const Confirmation = () => {
-  const { cartItems, clearCart } = useCart();
-  const [checkoutInfo, setCheckoutInfo] = useState(null);
+  const { cartItems, checkoutInfo, clearCart, setCheckoutInfo } = useCart();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const data = localStorage.getItem("checkoutInfo");
-    if (data) {
-      setCheckoutInfo(JSON.parse(data));
-    } else {
-      navigate("/");
-    }
-  }, [navigate]);
 
   const handlePlaceOrder = () => {
     clearCart();
-    localStorage.removeItem("checkoutInfo");
+    setCheckoutInfo({ name: "", address: "", payment: "" });
     alert("✅ Order confirmed! Thank you.");
     navigate("/");
   };
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  if (!checkoutInfo) return null;
+  if (!checkoutInfo.name) return null;
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
