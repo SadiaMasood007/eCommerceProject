@@ -1,13 +1,18 @@
 import React from "react";
-import { useProducts } from "../hooks/useProducts";
 import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import toast from "react-hot-toast";
+import { useLocalProducts } from "../hooks/useLocalProducts";
+import ProductModal from "./ProductModal";
+
 
 export default function ProductList() {
-  const { data: products, isLoading, isError } = useProducts();
   const { addToCart } = useCart();
+  const { products, isLoading, isError, addProduct, updateProduct, deleteProduct } = useLocalProducts();
 
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalMode, setModalMode] = React.useState("add");
+  const [editData, setEditData] = React.useState(null);
   if (isLoading) return <p className="text-center">Loading...</p>;
   if (isError) return <p className="text-center text-red-500">Error loading products</p>;
 
@@ -41,6 +46,19 @@ export default function ProductList() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+
+  const openAddModal = () => {
+    setModalMode("add");
+    setEditData(null);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (product) => {
+    setModalMode("edit");
+    setEditData(product);
+    setModalOpen(true);
+  };
+
   return (
     <div className="px-4 sm:px-6 md:px-8">
 
@@ -67,13 +85,30 @@ export default function ProductList() {
               <h2 className="text-xl font-bold text-center text-blue-900 mb-6">
                 {categoryTitles[cat]}
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center items-stretch">
                 {categories[cat].map((product) => (
                   <div
                     key={product.id}
-                    className="bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
-                               w-full max-w-[220px] flex flex-col justify-between h-[370px] mx-auto"
+                    className="group relative bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
+                               w-full max-w-[220px] h-full flex flex-col justify-between mx-auto"
                   >
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex flex-col gap-1">
+                      <button
+                        onClick={() => openEditModal(product)}
+                        className="text-xs text-blue-600 hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => {
+                          deleteProduct(product.id);
+                          toast.success("Deleted")
+                        }}
+                        className="text-xs text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </div>
                     <Link to={`/products/${product.id}`} className="flex-1 w-full">
                       <div className="flex flex-col items-start h-full">
                         <img
@@ -102,13 +137,44 @@ export default function ProductList() {
                     >
                       + 🛒
                     </button>
+
+
                   </div>
                 ))}
+
+                <div
+                  onClick={openAddModal}
+                  className="group relative bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
+             w-full max-w-[220px]  h-full flex flex-col justify-center items-center mx-auto cursor-pointer border-2 border-dashed border-gray-300"
+                >
+                  <span className="text-4xl">+</span>
+
+                </div>
+
               </div>
             </div>
+
           ) : null
         )}
       </div>
+      <ProductModal
+        isOpen={modalOpen}
+        mode={modalMode}
+        initial={editData}
+        onClose={() => setModalOpen(false)}
+        onSave={(product) => {
+          if (modalMode === "add") {
+            addProduct(product);
+            toast.success("Product Added");
+          } else {
+            updateProduct(product.id, product);
+            toast.success("Product Updated");
+          }
+        }}
+      />
+
     </div>
+
   );
 }
+
