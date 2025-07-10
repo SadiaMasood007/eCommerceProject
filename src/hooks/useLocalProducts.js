@@ -29,7 +29,7 @@ export function useLocalProducts() {
         rating: { rate: 0, count: 0 },
       };
       setProducts((prev) => [...prev, fallbackProduct]);
-      toast.error("API add failed — added locally");
+      toast.error("Added locally");
     }
   };
   const updateProduct = async (id, updatedData) => {
@@ -51,7 +51,8 @@ export function useLocalProducts() {
       setProducts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, ...updatedData } : p))
       );
-      toast.error("API update failed — updated locally");
+      console.error("API update failed — updated locally", err);
+      toast.error("Updated locally");
     }
   };
   const deleteProduct = async (id) => {
@@ -65,8 +66,8 @@ export function useLocalProducts() {
 
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
-      console.error("Failed to delete product", err);
-      toast.error("Delete failed (API), but removed locally");
+      console.error("Delete failed (API), but removed locally", err);
+      toast.error("Removed locally");
       setProducts((prev) => prev.filter((p) => p.id !== id));
     }
   };

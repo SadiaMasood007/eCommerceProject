@@ -85,12 +85,12 @@ export default function ProductList() {
               <h2 className="text-xl font-bold text-center text-blue-900 mb-6">
                 {categoryTitles[cat]}
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center items-stretch">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center items-stretch auto-rows-[1fr]">
                 {categories[cat].map((product) => (
                   <div
                     key={product.id}
                     className="group relative bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
-                               w-full max-w-[220px] h-full flex flex-col justify-between mx-auto"
+                               w-full max-w-[220px] h-[370px] flex flex-col justify-between mx-auto"
                   >
                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex flex-col gap-1">
                       <button
@@ -144,8 +144,9 @@ export default function ProductList() {
 
                 <div
                   onClick={openAddModal}
-                  className="group relative cursor-pointer flex flex-col justify-center items-center text-gray-500  
-             rounded-lg hover:bg-gray-100 transition w-full max-w-[220px] h-[370px] mx-auto "
+                  className="group relative bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
+             w-full max-w-[220px] h-[330px] flex flex-col justify-center items-center mx-auto cursor-pointer 
+             border-2 border-dashed border-gray-300"
                 >
                   <span className="text-4xl">+</span>
 
