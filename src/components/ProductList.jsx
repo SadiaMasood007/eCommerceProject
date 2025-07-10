@@ -116,7 +116,7 @@ export default function ProductList() {
                           alt={product.title}
                           className="h-32 w-full object-contain mx-auto"
                         />
-                        <h3 className="mt-2 text-sm font-semibold line-clamp-2 text-left w-full">
+                        <h3 className="mt-2 text-sm font-semibold line-clamp-2-local text-left w-full">
                           {product.title}
                         </h3>
                         <p className="text-gray-700 font-medium mt-1 text-left w-full">
@@ -144,8 +144,8 @@ export default function ProductList() {
 
                 <div
                   onClick={openAddModal}
-                  className="group relative bg-white p-4 rounded-lg shadow hover:scale-105 transition-transform 
-             w-full max-w-[220px]  h-full flex flex-col justify-center items-center mx-auto cursor-pointer border-2 border-dashed border-gray-300"
+                  className="group relative cursor-pointer flex flex-col justify-center items-center text-gray-500  
+             rounded-lg hover:bg-gray-100 transition w-full max-w-[220px] h-[370px] mx-auto "
                 >
                   <span className="text-4xl">+</span>
 

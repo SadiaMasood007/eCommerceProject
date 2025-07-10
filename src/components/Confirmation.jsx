@@ -33,8 +33,8 @@ const Confirmation = () => {
         {cartItems.map(item => (
           <div key={item.id} className="flex justify-between items-center mb-2 text-sm">
             <div className="flex items-center gap-3">
-              <img src={item.image} alt={item.title} className="w-10 h-10 object-contain" />
-              <span>{item.title} x {item.quantity}</span>
+              <img src={item.image} alt={item.title} className="w-10 h-10 object-contain " />
+              <span> {item.title} x {item.quantity}</span>
             </div>
             <span>${(item.price * item.quantity).toFixed(2)}</span>
           </div>

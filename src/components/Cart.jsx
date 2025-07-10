@@ -22,7 +22,7 @@ export default function Cart() {
               <div className="flex items-center gap-4">
                 <img src={item.image} className="h-16 w-16 object-contain" alt={item.title} />
                 <div>
-                  <p className="font-medium">{item.title}</p>
+                  <p className="font-medium line-clamp-2-local">{item.title}</p>
                   <p className="text-gray-600">${item.price}</p>
                   <div className="mt-1 flex items-center gap-2">
                     {/* <label>Qty:</label> */}

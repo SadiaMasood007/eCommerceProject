@@ -45,7 +45,7 @@ const Checkout = () => {
           <div key={item.id} className="flex items-center justify-between mb-3 gap-3">
             <img src={item.image} alt={item.title} className="w-12 h-12 object-contain" />
             <div className="flex-1 text-sm">
-              <p className="line-clamp-1">{item.title}</p>
+              <p className="line-clamp-1-local">{item.title}</p>
               <p className="text-gray-500">Qty: {item.quantity}</p>
             </div>
             <p className="font-medium text-sm">${(item.price * item.quantity).toFixed(2)}</p>

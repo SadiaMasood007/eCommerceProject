@@ -118,7 +118,7 @@ export default function ProductsDetail() {
                 </div>
                 <Link to={`/products/${item.id}`}>
                   <img src={item.image} alt={item.title} className="h-32 object-contain mx-auto" />
-                  <h3 className="mt-2 text-sm font-semibold line-clamp-2">{item.title}</h3>
+                  <h3 className="mt-2 text-sm font-semibold line-clamp-2-local">{item.title}</h3>
                   <p className="text-gray-700 text-sm">${item.price}</p>
                   <p className="text-blue-600 text-xs">
                     {renderStars(item.rating.rate)}{" "}
@@ -138,7 +138,7 @@ export default function ProductsDetail() {
             ))}
             <div
               onClick={openAddModal}
-              className="cursor-pointer flex flex-col justify-center items-center text-gray-500 border-2 border-dashed border-gray-300 
+              className="cursor-pointer flex flex-col justify-center items-center text-gray-500  
              rounded-lg hover:bg-gray-100 transition w-full max-w-[220px] h-[370px] mx-auto"
             >
               <span className="text-4xl">+</span>

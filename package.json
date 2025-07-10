@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/react-query": "^5.81.5",
     "axios": "^1.10.0",
     "react": "^19.1.0",
