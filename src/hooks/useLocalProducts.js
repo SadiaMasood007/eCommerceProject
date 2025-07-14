@@ -24,7 +24,6 @@ export function useLocalProducts() {
 
   };
   const updateProduct = async (id, updatedData) => {
-
     let updatedProduct;
     if (id <= 20) {
       updatedProduct = await updateProductInAPI(id, updatedData);
@@ -32,14 +31,15 @@ export function useLocalProducts() {
     } else {
       updatedProduct = { ...updatedData, id };
       toast.success("Product updated locally");
-
-
-      setProducts((prev) =>
-        prev.map((p) => (p.id === id ? { ...p, ...updatedProduct } : p))
-      );
     }
 
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updatedProduct } : p))
+    );
   };
+
+
+
   const deleteProduct = async (id) => {
 
     if (id <= 20) {
