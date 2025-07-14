@@ -77,13 +77,16 @@ export default function ProductModal({ isOpen, mode, initial, onClose, onSave })
             required
           />
           {form.image && (
-            <img
-              src={form.image}
-              alt="Preview"
-              onError={(e) => (e.currentTarget.src = "/placeholder.jpg")}
-              className="h-32 mt-2 object-contain border rounded"
-            />
+            <div className="flex justify-center">
+              <img
+                src={form.image}
+                alt="Preview"
+                onError={(e) => (e.currentTarget.src = "/placeholder.jpg")}
+                className="h-32 mt-2 object-contain"
+              />
+            </div>
           )}
+
         </div>
 
 
